@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text2Image Generator</title>
+    <!-- Clash Display Font from Fontshare -->
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@700,500,400&display=swap">
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Clash Display', sans-serif;
+            background-color: #f9f9f9;
+            color: #000;
+            margin: 0;
+            scroll-behavior: smooth;
+        }
+
+        /* Navbar Styling with Elevated Shadow Effect */
+        nav {
+            background-color: #fff;
+            color: #104cba;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid #f0f0f0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Logo Styling */
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #104cba;
+        }
+
+        /* Navigation Links */
+        .nav-links {
+            list-style-type: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #104cba;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #083a89;
+        }
+
+        /* Welcome Section with Background Image */
+        .welcome-section {
+            height: 95vh;
+            background-image: url('https://wp-themes.com/wp-content/themes/neve/assets/img/starter-content/neve-hero-2.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            flex-direction: column;
+            padding-bottom: 50px;
+        }
+
+        .welcome-section h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .welcome-section p {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+        }
+
+        /* Button Styling for Start Generating */
+        #start-btn {
+            font-family: 'Clash Display', sans-serif;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            background-color: #fff;
+            color: #104cba;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #start-btn:hover {
+            background-color: #083a89;
+            color: #fff;
+        }
+
+        /* Improved Form Section */
+        .form-section {
+            padding: 40px;
+            text-align: center;
+            background-color: #f9f9f9;
+            margin-top: 40px;
+        }
+
+        .form-section h2 {
+            margin-bottom: 20px;
+            font-size: 2em;
+            color: #104cba;
+        }
+
+        /* Input Styling */
+        input {
+            width: 60%;
+            padding: 15px;
+            font-size: 18px;
+            border: 2px solid #ccc;
+            border-radius: 25px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #083a89;
+            box-shadow: 0 0 10px rgba(8, 58, 137, 0.2);
+            outline: none;
+        }
+
+        /* Styling for Generate Image Button */
+        button#generate-btn {
+            font-family: 'Clash Display', sans-serif;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            background-color: #104cba;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            margin-left: 20px;
+        }
+
+        button#generate-btn:hover {
+            background-color: #083a89;
+        }
+
+        /* Progress Bar Styling */
+        .progress-container {
+            display: none;
+            width: 60%;
+            background-color: #e0e0e0;
+            border-radius: 25px;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 30px;
+            width: 0%;
+            background-color: #104cba;
+            text-align: center;
+            line-height: 30px;
+            color: #fff;
+            transition: width 0.1s;
+        }
+
+        /* Image Result */
+        .image-result, .analysis-result {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .image-result img {
+            max-width: 100%;
+            border: 2px solid #104cba;
+            border-radius: 10px;
+        }
+
+        /* Footer Styling */
+        footer {
+            padding: 40px 20px;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 1.2em;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #104cba;
+        }
+
+        footer p {
+            font-size: 1.1em;
+            margin: 10px 0;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar with Shadow -->
+    <nav>
+        <div class="logo">Text2Image Generator</div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="https://github.com/kaushik0306/text-to-image-pipeline/blob/main/Text%20to%20Image%20documentation.docx">Documentation</a></li>
+        </ul>
+    </nav>
+
+    <!-- Welcome Section with Background Image -->
+    <section class="welcome-section">
+        <h1>Welcome to Text2Image Generator</h1>
+        <p>Generate stunning images from text prompts with ease.</p>
+        <button id="start-btn">Start Generating</button>
+    </section>
+
+    <!-- Generator Form Section -->
+    <section id="form-section" class="form-section">
+        <div class="input-container">
+            <h2>Enter Your Prompt</h2>
+            <input type="text" id="prompt" placeholder="Enter a prompt...">
+            <button id="generate-btn">Generate Image</button>
+            <div id="loading" style="display:none;">Loading...</div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-container" id="progress-container">
+            <div class="progress-bar" id="progress-bar">0%</div>
+        </div>
+
+        <!-- Image Result -->
+        <div class="image-result" id="image-result">
+            <h2>Generated Image</h2>
+            <img id="generated-image" src="" alt="Generated Image">
+        </div>
+
+        <!-- Analysis Results -->
+        <div class="analysis-result" id="analysis-result">
+            <h3>Analysis Results</h3>
+            <p id="analyzing-message">Analyzing the image...</p>
+            <p id="concepts"></p>
+            <p id="confidence-scores"></p>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <p><a href="mailto:kaushiknomula306@gmail.com">kaushiknomula306@gmail.com</a></p>
+        <p>
+            <a href="https://github.com/kaushik0306/text-to-image-pipeline" target="_blank">GitHub</a> |
+            <a href="https://www.linkedin.com/in/kaushik-reddy-nomula-079a31209/">LinkedIn</a>
+        </p>
+        <p>Text2Image Generator</p>
+    </footer>
+
+    <script>
+        const GENERATE_URL = "http://54.89.36.139:5000/generate";
+        const ANALYZE_URL = "http://54.89.36.139:5000/analyze";
+    
+        document.getElementById('start-btn').addEventListener('click', function() {
+            document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        function startProgressBar() {
+            const progressBar = document.getElementById('progress-bar');
+            const progressContainer = document.getElementById('progress-container');
+            progressContainer.style.display = 'block';
+            let width = 0;
+            const interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                } else {
+                    width += (1/260) * 100;
+                    progressBar.style.width = width + '%';
+                    progressBar.innerText = Math.floor(width) + '%';
+                }
+            }, 1000);
+            progressBar.interval = interval;
+        }
+
+        function stopProgressBar() {
+            const progressBar = document.getElementById('progress-bar');
+            const progressContainer = document.getElementById('progress-container');
+            clearInterval(progressBar.interval);
+            progressContainer.style.display = 'none';
+            progressBar.style.width = '0%';
+            progressBar.innerText = '0%';
+        }
+
+        document.getElementById('generate-btn').addEventListener('click', function() {
+            const prompt = document.getElementById('prompt').value;
+    
+            if (prompt) {
+                document.getElementById('loading').style.display = 'block';
+                document.getElementById('image-result').style.display = 'none';
+                document.getElementById('analysis-result').style.display = 'none';
+                document.getElementById('analyzing-message').style.display = 'block';
+                startProgressBar();
+    
+                fetch(GENERATE_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: prompt })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.image_url) {
+                        document.getElementById('generated-image').src = data.image_url;
+                        document.getElementById('image-result').style.display = 'block';
+                        stopProgressBar();
+                        analyzeImage(data.image_url);
+                    } else {
+                        alert("Failed to generate the image. Please try again.");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert("An error occurred while generating the image.");
+                    stopProgressBar();
+                })
+                .finally(() => {
+                    document.getElementById('loading').style.display = 'none';
+                });
+            } else {
+                alert("Please enter a prompt.");
+            }
+        });
+
+        function analyzeImage(imageUrl) {
+            fetch(ANALYZE_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ image_url: imageUrl })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.clip_analysis && data.clip_analysis.concepts) {
+                    document.getElementById('concepts').innerText = "Concepts: " + data.clip_analysis.concepts.join(", ");
+                    document.getElementById('confidence-scores').innerText = "Confidence Scores: " + data.clip_analysis.confidence_scores.join(", ");
+                    document.getElementById('analysis-result').style.display = 'block';
+                    document.getElementById('analyzing-message').style.display = 'none';
+                } else {
+                    alert("Failed to analyze the image. Please try again.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("An error occurred while analyzing the image.");
+            });
+        }
+    </script>
+    <script>
+        document.getElementById('aboutButton').onclick = function() {
+            window.history.pushState({}, '', '/about'); // Change the URL to /about
+            loadAboutPage(); // Function to load the about page content
+        };
+    
+        function loadAboutPage() {
+            fetch('about.html') // Fetch the content of about.html
+                .then(response => response.text())
+                .then(data => {
+                    document.body.innerHTML = data; // Replace the current body content with the fetched content
+                })
+                .catch(error => console.error('Error loading about page:', error));
+        }
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Text2Image Generator</title>
+    <!-- Clash Display Font from Fontshare -->
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@700,500,400&display=swap">
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Clash Display', sans-serif;
+            background-color: #f9f9f9;
+            color: #000;
+            margin: 0;
+            scroll-behavior: smooth;
+        }
+
+        /* Navbar Styling */
+        nav {
+            background-color: #fff;
+            color: #104cba;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        /* Logo Styling */
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #104cba;
+        }
+
+        /* Navigation Links */
+        .nav-links {
+            list-style-type: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #104cba;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #083a89;
+        }
+
+        /* About Section Styling with Blue Background */
+        .about-section {
+            padding: 80px 40px;
+            text-align: center;
+            background-color: #104cba;
+            color: #fff;
+        }
+
+        .about-section h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .about-section p {
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            line-height: 1.6;
+            color: #fff;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Technology Used Section */
+        .tech-section {
+            padding: 60px 40px;
+            text-align: center;
+            background-color: #fff;
+        }
+
+        .tech-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #104cba;
+        }
+
+        .tech-list {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            list-style-type: none;
+        }
+
+        .tech-list li {
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            color: #104cba;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .tech-list li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Common Footer Styling */
+        footer {
+            padding: 40px 20px;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 1.2em;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #104cba;
+        }
+
+        footer p {
+            font-size: 1.1em;
+            margin: 10px 0;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <!-- Logo Section -->
+        <div class="logo">
+            Text2Image Generator
+        </div>
+
+        <!-- Navigation Links -->
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="documentation.html">Documentation</a></li>
+        </ul>
+    </nav>
+
+    <!-- About Section with Blue Background -->
+    <section class="about-section">
+        <h1>About the Project</h1>
+        <p>
+            The Text2Image Generator is a cutting-edge web-based tool that transforms text prompts into stunning, high-quality images using state-of-the-art machine learning models like Stable Diffusion and CLIP. 
+            It’s designed to be intuitive and accessible to users of all skill levels. Whether you’re an artist, a developer, or just someone curious about AI, this tool will help you generate creative images quickly and easily.
+        </p>
+    </section>
+
+    <!-- Technologies Section -->
+    <section class="tech-section">
+        <h2>Technologies Used</h2>
+        <ul class="tech-list">
+            <li>Stable Diffusion</li>
+            <li>CLIP Model</li>
+            <li>Python & Flask</li>
+            <li>HTML, CSS & JavaScript</li>
+            <li>SAM (Segment Anything Model)</li>
+            <li>REST API</li>
+        </ul>
+    </section>
+
+    <!-- Common Footer -->
+    <footer>
+        <p><a href="mailto:kaushiknomula306@gmail.com">kaushiknomula306@gmail.com</a></p>
+        <p>
+            <a href="https://github.com/kaushik0306/text-to-image-pipeline" target="_blank">GitHub</a> |
+            <a href="https://www.linkedin.com/in/kaushik-reddy-nomula-079a31209/">LinkedIn</a>
+        </p>
+        <p>Text2Image Generator</p>
+    </footer>
+
+</body>
+</html>
