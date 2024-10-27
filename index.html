@@ -272,8 +272,9 @@
     </footer>
 
     <script>
-        const GENERATE_URL = "http://54.89.36.139:5000/generate";
-        const ANALYZE_URL = "http://54.89.36.139:5000/analyze";
+        // Updated Proxy URLs
+        const PROXY_GENERATE_URL = "/.netlify/functions/proxy-generate";
+        const PROXY_ANALYZE_URL = "/.netlify/functions/proxy-analyze";
     
         document.getElementById('start-btn').addEventListener('click', function() {
             document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
@@ -315,7 +316,7 @@
                 document.getElementById('analyzing-message').style.display = 'block';
                 startProgressBar();
     
-                fetch(GENERATE_URL, {
+                fetch(PROXY_GENERATE_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ prompt: prompt })
@@ -345,7 +346,7 @@
         });
 
         function analyzeImage(imageUrl) {
-            fetch(ANALYZE_URL, {
+            fetch(PROXY_ANALYZE_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ image_url: imageUrl })
@@ -367,21 +368,5 @@
             });
         }
     </script>
-    <script>
-        document.getElementById('aboutButton').onclick = function() {
-            window.history.pushState({}, '', '/about'); // Change the URL to /about
-            loadAboutPage(); // Function to load the about page content
-        };
-    
-        function loadAboutPage() {
-            fetch('about.html') // Fetch the content of about.html
-                .then(response => response.text())
-                .then(data => {
-                    document.body.innerHTML = data; // Replace the current body content with the fetched content
-                })
-                .catch(error => console.error('Error loading about page:', error));
-        }
-    </script>
-    
 </body>
 </html>
