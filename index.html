@@ -76,6 +76,9 @@
             color: #fff;
             flex-direction: column;
             padding-bottom: 50px;
+            opacity: 0;
+            transform: translateY(-50px);
+            animation: fadeInDown 1.5s ease-in-out forwards;
         }
 
         .welcome-section h1 {
@@ -86,6 +89,13 @@
         .welcome-section p {
             font-size: 1.5em;
             margin-bottom: 30px;
+        }
+
+        @keyframes fadeInDown {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Button Styling for Start Generating */
@@ -273,8 +283,8 @@
 
     <script>
         // Updated Proxy URLs
-        const PROXY_GENERATE_URL = "/api/generate";
-        const PROXY_ANALYZE_URL = "/api/analyze";
+        const PROXY_GENERATE_URL = "http://54.89.36.139:5000/generate";
+        const PROXY_ANALYZE_URL = "http://54.89.36.139:5000/analyze";
     
         document.getElementById('start-btn').addEventListener('click', function() {
             document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
@@ -326,6 +336,7 @@
                     if (data.image_url) {
                         document.getElementById('generated-image').src = data.image_url;
                         document.getElementById('image-result').style.display = 'block';
+                        document.getElementById('analyzing-message').style.display = 'block';
                         stopProgressBar();
                         analyzeImage(data.image_url);
                     } else {
